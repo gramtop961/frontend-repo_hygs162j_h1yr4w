@@ -1,12 +1,19 @@
 import { useState } from "react";
 import { Users, Star, Shield, Mail, Lock, Check, ArrowRight } from "lucide-react";
+import { motion } from "framer-motion";
 
 function Metric({ label, value }) {
   return (
-    <div className="rounded-2xl bg-white p-6 text-center shadow-sm">
+    <motion.div
+      className="rounded-2xl bg-white p-6 text-center shadow-sm"
+      initial={{ opacity: 0, y: 8 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, amount: 0.3 }}
+      transition={{ duration: 0.45 }}
+    >
       <div className="text-3xl font-bold text-slate-900">{value}</div>
       <div className="mt-1 text-sm text-slate-600">{label}</div>
-    </div>
+    </motion.div>
   );
 }
 
@@ -37,9 +44,15 @@ const testimonials = [
   },
 ];
 
-function TestimonialCard({ t }) {
+function TestimonialCard({ t, idx }) {
   return (
-    <figure className="rounded-2xl border border-slate-100 bg-white p-6 shadow-sm">
+    <motion.figure
+      className="rounded-2xl border border-slate-100 bg-white p-6 shadow-sm"
+      initial={{ opacity: 0, y: 8 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, amount: 0.25 }}
+      transition={{ duration: 0.45, delay: idx * 0.05 }}
+    >
       <blockquote className="text-slate-700">“{t.quote}”</blockquote>
       <figcaption className="mt-4 flex items-center gap-3">
         <img
@@ -52,18 +65,22 @@ function TestimonialCard({ t }) {
           <div className="text-sm text-slate-600">{t.role}</div>
         </div>
       </figcaption>
-    </figure>
+    </motion.figure>
   );
 }
 
-function Plan({ name, price, features, highlighted }) {
+function Plan({ name, price, features, highlighted, idx }) {
   return (
-    <div
+    <motion.div
       className={`flex flex-1 flex-col rounded-2xl border p-6 shadow-sm ${
         highlighted
           ? "border-emerald-300 bg-emerald-50/50"
           : "border-slate-100 bg-white"
       }`}
+      initial={{ opacity: 0, y: 10 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, amount: 0.3 }}
+      transition={{ duration: 0.45, delay: idx * 0.08 }}
     >
       <div className="flex items-baseline justify-between">
         <h3 className="text-lg font-semibold text-slate-900">{name}</h3>
@@ -88,7 +105,7 @@ function Plan({ name, price, features, highlighted }) {
         {highlighted ? "Start Free" : "Unlock Premium Growth"}
         <ArrowRight className="ml-2 h-4 w-4" />
       </a>
-    </div>
+    </motion.div>
   );
 }
 
@@ -99,7 +116,13 @@ export default function CommunityAndSupport() {
     <section className="bg-gradient-to-b from-slate-50 to-white py-16 sm:py-20">
       <div className="mx-auto max-w-7xl px-6">
         {/* Community & Impact */}
-        <div className="text-center">
+        <motion.div
+          className="text-center"
+          initial={{ opacity: 0, y: 10 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, amount: 0.4 }}
+          transition={{ duration: 0.5 }}
+        >
           <h2 className="text-3xl font-semibold tracking-tight text-slate-900 sm:text-4xl">
             Community, impact, and support
           </h2>
@@ -107,7 +130,7 @@ export default function CommunityAndSupport() {
             Built for inclusivity and care. We believe wellness should be accessible—
             and that growth is better together.
           </p>
-        </div>
+        </motion.div>
 
         <div className="mt-10 grid gap-6 sm:grid-cols-3">
           <Metric label="Lives touched" value="120,000+" />
@@ -116,13 +139,20 @@ export default function CommunityAndSupport() {
         </div>
 
         <div className="mt-14 grid gap-6 lg:grid-cols-3">
-          {testimonials.map((t) => (
-            <TestimonialCard key={t.name} t={t} />
+          {testimonials.map((t, idx) => (
+            <TestimonialCard key={t.name} t={t} idx={idx} />
           ))}
         </div>
 
         {/* Freemium Pricing */}
-        <div id="pricing" className="mt-16 rounded-3xl bg-white p-6 shadow">
+        <motion.div
+          id="pricing"
+          className="mt-16 rounded-3xl bg-white p-6 shadow"
+          initial={{ opacity: 0, y: 12 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, amount: 0.3 }}
+          transition={{ duration: 0.5 }}
+        >
           <div className="flex flex-col items-center justify-between gap-4 sm:flex-row">
             <div className="text-left">
               <h3 className="text-2xl font-semibold text-slate-900">Freemium pricing</h3>
@@ -150,6 +180,7 @@ export default function CommunityAndSupport() {
 
           <div className="mt-8 grid gap-6 sm:grid-cols-2">
             <Plan
+              idx={0}
               name="Free"
               price={annual ? "$0" : "$0"}
               highlighted
@@ -161,6 +192,7 @@ export default function CommunityAndSupport() {
               ]}
             />
             <Plan
+              idx={1}
               name="Premium"
               price={annual ? "$59/yr" : "$6/mo"}
               features={[
@@ -172,20 +204,32 @@ export default function CommunityAndSupport() {
             />
           </div>
           <p className="mt-3 text-center text-sm text-slate-500">Annual plan includes 2 months free.</p>
-        </div>
+        </motion.div>
 
         {/* Content Hub / Blog link */}
-        <div className="mt-14 rounded-2xl bg-gradient-to-r from-emerald-50 to-sky-50 p-6 text-center">
+        <motion.div
+          className="mt-14 rounded-2xl bg-gradient-to-r from-emerald-50 to-sky-50 p-6 text-center"
+          initial={{ opacity: 0, y: 10 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, amount: 0.3 }}
+          transition={{ duration: 0.45 }}
+        >
           <h3 className="text-xl font-semibold text-slate-900">Wellness insights</h3>
           <p className="mt-2 text-slate-600">Explore articles, guides, and reflections for encouragement and education.</p>
           <a href="#blog" className="mt-3 inline-flex items-center justify-center rounded-lg bg-slate-900 px-4 py-2 text-white hover:bg-slate-800">
             Read More Wellness Insights
           </a>
-        </div>
+        </motion.div>
 
         {/* Join Our Movement */}
         <div className="mt-14 grid gap-8 lg:grid-cols-2">
-          <div className="rounded-2xl bg-white p-6 shadow">
+          <motion.div
+            className="rounded-2xl bg-white p-6 shadow"
+            initial={{ opacity: 0, y: 10 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, amount: 0.3 }}
+            transition={{ duration: 0.45 }}
+          >
             <div className="flex items-center gap-2 text-slate-900">
               <Users className="h-5 w-5 text-emerald-600" />
               <h3 className="text-lg font-semibold">Join our movement</h3>
@@ -198,10 +242,17 @@ export default function CommunityAndSupport() {
               <span className="inline-flex items-center gap-1"><Star className="h-4 w-4 text-emerald-600"/> 250k followers</span>
               <span className="inline-flex items-center gap-1"><Shield className="h-4 w-4 text-emerald-600"/> Evidence-informed content</span>
             </div>
-          </div>
+          </motion.div>
 
           {/* Contact & Support + Auth */}
-          <div id="signup" className="rounded-2xl bg-white p-6 shadow">
+          <motion.div
+            id="signup"
+            className="rounded-2xl bg-white p-6 shadow"
+            initial={{ opacity: 0, y: 10 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, amount: 0.3 }}
+            transition={{ duration: 0.45, delay: 0.05 }}
+          >
             <div className="flex items-center gap-2 text-slate-900">
               <Mail className="h-5 w-5 text-emerald-600" />
               <h3 className="text-lg font-semibold">Contact & Support</h3>
@@ -250,7 +301,7 @@ export default function CommunityAndSupport() {
                 <button className="inline-flex items-center justify-center rounded-lg bg-slate-900 px-4 py-2 text-white hover:bg-slate-800">Subscribe</button>
               </div>
             </form>
-          </div>
+          </motion.div>
         </div>
 
         <footer className="mt-16 border-t border-slate-200 pt-6 text-center text-sm text-slate-500">

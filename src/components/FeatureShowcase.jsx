@@ -1,4 +1,5 @@
 import { Heart, BookOpen, Sparkles, Headphones } from "lucide-react";
+import { motion } from "framer-motion";
 
 const features = [
   {
@@ -31,18 +32,31 @@ export default function FeatureShowcase() {
   return (
     <section className="bg-white py-16 sm:py-20">
       <div className="mx-auto max-w-7xl px-6">
-        <div className="mx-auto max-w-2xl text-center">
+        <motion.div
+          className="mx-auto max-w-2xl text-center"
+          initial={{ opacity: 0, y: 10 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, amount: 0.4 }}
+          transition={{ duration: 0.5 }}
+        >
           <h2 className="text-3xl font-semibold tracking-tight text-slate-900 sm:text-4xl">
             Four pillars for daily growth
           </h2>
           <p className="mt-3 text-slate-600">
             Choose what fits your season. Mix and match practices at your pace.
           </p>
-        </div>
+        </motion.div>
 
         <div className="mt-12 grid gap-8 sm:grid-cols-2 lg:grid-cols-4">
-          {features.map((f) => (
-            <div key={f.title} className="group rounded-2xl border border-slate-100 bg-slate-50/50 p-4 shadow-sm transition hover:-translate-y-1 hover:shadow-md">
+          {features.map((f, idx) => (
+            <motion.div
+              key={f.title}
+              className="group rounded-2xl border border-slate-100 bg-slate-50/50 p-4 shadow-sm transition hover:-translate-y-1 hover:shadow-md"
+              initial={{ opacity: 0, y: 10 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, amount: 0.3 }}
+              transition={{ duration: 0.45, delay: idx * 0.06 }}
+            >
               <div className="flex items-center gap-3">
                 <div className="rounded-lg bg-emerald-100 p-2 text-emerald-700">
                   <f.icon className="h-5 w-5" aria-hidden />
@@ -57,7 +71,7 @@ export default function FeatureShowcase() {
                   className="aspect-video w-full object-cover transition duration-300 group-hover:scale-[1.02]"
                 />
               </div>
-            </div>
+            </motion.div>
           ))}
         </div>
       </div>
